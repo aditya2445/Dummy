@@ -10,18 +10,18 @@ const History = () => {
   const refer = useRef({});
 
   useEffect(() => {
-    if (refer.current) {
-      refer.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
-    // if (lastSelectedMovie && refer.current[lastSelectedMovie]) {
-    //   refer.current[lastSelectedMovie].scrollIntoView({
+    // if (refer.current) {
+    //   refer.current.scrollIntoView({
     //     behavior: "smooth",
     //     block: "center",
     //   });
     // }
+    if (lastSelectedMovie && refer.current[lastSelectedMovie]) {
+      refer.current[lastSelectedMovie].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
   }, [lastSelectedMovie]);
 
   return (
@@ -34,8 +34,7 @@ const History = () => {
               key={movie.imdbID}
               lastSelectedMovie={lastSelectedMovie}
               movie={movie}
-              ref={lastSelectedMovie === movie.imdbID ? refer : null}
-              // ref={ele => (refer.current[movie.imdbID] = ele)}
+              ref={ele => (refer.current[movie.imdbID] = ele)}
             />
           ))
         ) : (
