@@ -50,10 +50,12 @@
 import React from "react";
 
 import Home from "components/Home/Home";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const App = () => (
   <div>
     <Home />
+    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
   </div>
 );
 
