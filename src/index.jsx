@@ -6,11 +6,28 @@ import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
+// eslint-disable-next-line import/order
+import { QueryClientProvider } from "react-query";
+// eslint-disable-next-line import/order
+import queryClient from "utils/queryClient";
+// eslint-disable-next-line import/order
+import { ToastContainer } from "react-toastify";
+// eslint-disable-next-line import/order
+import initializeAxios from "apis/axios";
+// eslint-disable-next-line import/order
+import { BrowserRouter } from "react-router-dom";
+
+initializeAxios();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <ToastContainer />
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
