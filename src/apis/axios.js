@@ -47,7 +47,7 @@ const responseInterceptors = () => {
 };
 
 export default function initializeAxios() {
-  axios.defaults.baseURL = "http://www.omdbapi.com";
+  axios.defaults.baseURL = "https://www.omdbapi.com";
   setHttpHeaders();
   requestInterceptors();
   responseInterceptors();
