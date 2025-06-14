@@ -25,7 +25,7 @@ const History = () => {
   }, [lastSelectedMovie]);
 
   return (
-    <div className="flex h-screen w-1/4 flex-col">
+    <div className="hidden h-screen w-1/4 flex-col md:flex">
       <p className="mt-3 text-center text-2xl font-bold">View History</p>
       <div className="mt-5 flex-1 overflow-y-auto rounded-md">
         {history.length > 0 ? (
