@@ -16,3 +16,15 @@ body{
 .activeColor {
   background-color: #2f62ff;
 }
+
+.favouriteColor {
+  background-color: #f5f5f5;
+}
+
+.parentText {
+  font-size: 16px;
+}
+
+.childText {
+  font-size: 12px;
+}
