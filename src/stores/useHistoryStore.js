@@ -8,6 +8,7 @@ const useHistoryStore = create(
     set => ({
       historyMovies: [],
       lastSelectedMovie: null,
+      favouriteMovies: [],
       addToHistory: movie =>
         set(({ historyMovies }) => {
           const movieExists = historyMovies.find(
@@ -23,6 +24,20 @@ const useHistoryStore = create(
 
           return { historyMovies, lastSelectedMovie: movie.imdbID };
         }),
+      addToFavourites: movie => {
+        set(state =>
+          state.favouriteMovies.includes(movie)
+            ? state
+            : { favouriteMovies: [...state.favouriteMovies, movie] }
+        );
+      },
+      removeFromFavourites: movieId => {
+        set(state => ({
+          favouriteMovies: state.favouriteMovies.filter(
+            movie => movie.imdbID !== movieId
+          ),
+        }));
+      },
       removeFromHistory: movieId =>
         set(({ historyMovies }) => {
           if (isNotEmpty(movieId)) {
