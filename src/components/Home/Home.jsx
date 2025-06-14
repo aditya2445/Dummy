@@ -4,7 +4,7 @@ import History from "components/History";
 import Search from "components/Search";
 
 const Home = () => (
-  <div className="relative flex h-screen justify-around overflow-hidden shadow-md">
+  <div className="relative flex h-screen justify-around shadow-md">
     <Search />
     <History />
   </div>
