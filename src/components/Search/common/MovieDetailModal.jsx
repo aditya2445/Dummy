@@ -3,15 +3,29 @@ import React from "react";
 // import PageLoader from "components/commons/PageLoader";
 import PageLoader from "components/commons/PageLoader";
 import { useShowMovieDetails } from "hooks/reactQuery/useShowMovies";
-import { Close } from "neetoicons";
+import { Close, Rating, RatingFilled } from "neetoicons";
+import { Tooltip } from "neetoui";
+import useHistoryStore from "stores/useHistoryStore";
 
 import Genre from "./Genre";
 
 const MovieDetailModal = ({ id: imdbID, setIsModalOpen }) => {
   const { data, isFetching } = useShowMovieDetails(imdbID);
-
+  const { favouriteMovies, addToFavourites, removeFromFavourites } =
+    useHistoryStore();
+  // console.log(favouriteMovies);
+  const arr = favouriteMovies.map(ele => ele.imdbID);
+  const isAvailableInFavorites = arr.includes(data?.imdbID);
   const clickHandler = () => {
     setIsModalOpen(prev => !prev);
+  };
+
+  const handleClickOnStar = () => {
+    addToFavourites(data);
+  };
+
+  const handleClickOnFullStar = movieId => {
+    removeFromFavourites(movieId);
   };
 
   return isFetching ? (
@@ -24,7 +38,24 @@ const MovieDetailModal = ({ id: imdbID, setIsModalOpen }) => {
         <div className="p-4">
           <div className="flex w-full justify-between">
             <div className="flex flex-col">
-              <h1 className="text-2xl font-bold">{data?.Title}</h1>
+              <div className="flex items-center justify-center gap-2">
+                <h1 className="text-2xl font-bold">{data?.Title}</h1>
+                {isAvailableInFavorites ? (
+                  <RatingFilled
+                    className="cursor-pointer"
+                    onClick={() => handleClickOnFullStar(data.imdbID)}
+                  />
+                ) : (
+                  <Tooltip content="Add to Favourites" placement="top">
+                    <span>
+                      <Rating
+                        className="cursor-pointer"
+                        onClick={handleClickOnStar}
+                      />
+                    </span>
+                  </Tooltip>
+                )}
+              </div>
               <div className="mb-2 mt-2 flex gap-2">
                 {data?.Genre?.split(", ").length > 0 &&
                   data?.Genre?.split(", ").map((ele, ind) => (
