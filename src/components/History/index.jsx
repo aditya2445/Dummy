@@ -1,11 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
+import { Alert, Typography } from "neetoui";
 import useHistoryStore from "stores/useHistoryStore";
 
 import HistoryCard from "./HistoryCard";
 
 const History = () => {
-  const { historyMovies: history, lastSelectedMovie } = useHistoryStore();
+  const {
+    historyMovies: history,
+    lastSelectedMovie,
+    clearHistory,
+  } = useHistoryStore();
+  const [shouldShowDeleteAlert, setShouldShowDeleteAlert] = useState(false);
 
   const refer = useRef({});
 
@@ -24,11 +30,32 @@ const History = () => {
     }
   }, [lastSelectedMovie]);
 
-  console.log(history);
-
   return (
     <div className="hidden h-screen w-1/4 flex-col md:flex">
-      <p className="mt-3 text-center text-2xl font-bold">View History</p>
+      <div className="flex items-center justify-between px-4">
+        <p className="mt-2 text-center text-xl font-semibold">View History</p>
+        <button
+          className="mt-2 text-center text-sm font-semibold text-red-700"
+          onClick={() => setShouldShowDeleteAlert(true)}
+        >
+          Clear All
+        </button>
+        <Alert
+          isOpen={shouldShowDeleteAlert}
+          submitButtonLabel="Yes, remove"
+          title="Remove item?"
+          message={
+            <Typography>
+              Are you sure to remove all movies from history ?
+            </Typography>
+          }
+          onClose={() => setShouldShowDeleteAlert(false)}
+          onSubmit={() => {
+            clearHistory();
+            setShouldShowDeleteAlert(false);
+          }}
+        />
+      </div>
       <div className="mt-5 flex-1 overflow-y-auto rounded-md">
         {history.length > 0 ? (
           history.map(movie => (
