@@ -24,6 +24,8 @@ const History = () => {
     }
   }, [lastSelectedMovie]);
 
+  console.log(history);
+
   return (
     <div className="hidden h-screen w-1/4 flex-col md:flex">
       <p className="mt-3 text-center text-2xl font-bold">View History</p>
