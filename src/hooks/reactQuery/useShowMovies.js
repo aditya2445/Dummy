@@ -7,8 +7,20 @@ import { useQuery } from "react-query";
 // eslint-disable-next-line import/exports-last
 export default function useShowMovies(movieParams) {
   const qqq = useQuery({
-    queryKey: [QUERY_KEYS.MOVIES, movieParams.search, movieParams.page],
-    queryFn: () => moviesApi.fetch(movieParams.search, movieParams.page),
+    queryKey: [
+      QUERY_KEYS.MOVIES,
+      movieParams.search,
+      movieParams.page,
+      movieParams.year,
+      movieParams.type,
+    ],
+    queryFn: () =>
+      moviesApi.fetch(
+        movieParams.search,
+        movieParams.page,
+        movieParams.year,
+        movieParams.type
+      ),
     enabled: !!movieParams.search,
     keepPreviousData: true,
   });
