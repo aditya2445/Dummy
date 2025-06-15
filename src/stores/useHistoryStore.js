@@ -41,7 +41,11 @@ const useHistoryStore = create(
       removeFromHistory: movieId =>
         set(({ historyMovies }) => {
           if (isNotEmpty(movieId)) {
-            return historyMovies.filter(item => item.imdbID !== movieId);
+            return {
+              historyMovies: historyMovies.filter(
+                item => item.imdbID !== movieId
+              ),
+            };
           }
 
           return {};
